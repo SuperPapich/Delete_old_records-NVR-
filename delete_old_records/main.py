@@ -1,13 +1,18 @@
 import asyncio
 from loguru import logger
 
-from erudite import Erudite
+from apis.erudite import Erudite
+
+
+@logger.catch
+def filter(records: list) -> list:
+    pass
 
 
 @logger.catch
 async def main():
     er = Erudite()
-    await er.get_all_records()
+    records = await er.get_needed_records()
 
 
 if __name__ == "__main__":
