@@ -2,17 +2,28 @@ import asyncio
 from loguru import logger
 
 from apis.erudite import Erudite
+from apis.drive import Drive
 
 
 @logger.catch
-def filter(records: list) -> list:
-    pass
+def filter(record: list) -> bool:
+    if record.get('type') == 'Offline':
+        return True
+    else:
+        return False
 
 
 @logger.catch
 async def main():
     er = Erudite()
+    drive = Drive()
     records = await er.get_needed_records()
+    for i in range(len(records)):
+        if filter(records[i]):
+            await drive.delete_video(records[i].get('url'))
+        else:
+            print('ненне')
+
 
 
 if __name__ == "__main__":
