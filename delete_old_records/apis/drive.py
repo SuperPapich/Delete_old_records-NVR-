@@ -8,6 +8,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 from googleapiclient.errors import HttpError
+from apiclient import errors
+from apiclient import http
 
 from settings import settings
 
@@ -43,8 +45,15 @@ class Drive:
 
 
     async def delete_video(self, video_url: str) -> None:
-        drive_id = video_url.split('/')[5]
-        print(drive_id)
+        video_id = video_url.split('/')[5]
+        try:
+            request = self.service.files().delete(fileId=video_id).execute()
+
+
+        except HttpError:
+            logger.error(f"File with id - {video_id} not found")
+
+
 
 
 
