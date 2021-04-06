@@ -20,8 +20,8 @@ async def main():
     records = await er.get_needed_records()
     for i in range(len(records)):
         if filter(records[i]):
-            print(records[i])
-            #await drive.delete_video(records[i].get('url'))
+            #print(records[i])
+            await drive.delete_video(records[i].get('url'))
 
 
 

@@ -49,7 +49,6 @@ class Drive:
         try:
             request = self.service.files().delete(fileId=video_id).execute()
 
-
         except HttpError:
             logger.error(f"File with id - {video_id} not found")
 
