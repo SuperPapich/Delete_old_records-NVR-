@@ -5,23 +5,23 @@ from apis.erudite import Erudite
 from apis.drive import Drive
 
 
-@logger.catch
-def filter(record: list) -> bool:
-    if record.get('type') == 'Offline':
-        return True
-    else:
-        return False
+def get_offline(records: list) -> list:
+    records = [record for record in records if record.get('type') == 'Offline1']
+    return records
 
 
 @logger.catch
 async def main():
     er = Erudite()
     drive = Drive()
+
     records = await er.get_needed_records()
-    for i in range(len(records)):
-        if filter(records[i]):
-            #print(records[i])
-            await drive.delete_video(records[i].get('url'))
+    offline_records = get_offline(records)
+    print(offline_records)
+    await drive.delete_video("https://drive.google.com/file/d/1v-4-wUJ4klnVLRcjTcjCHlfQJz6DRRKj/preview")
+    #print(offline_records)
+    # for record in records:
+    #     await drive.delete_video(records[i].get('url'))
 
 
 
