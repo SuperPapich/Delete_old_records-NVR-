@@ -7,7 +7,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from settings import settings
+from ..settings import settings
 
 
 class Drive:
@@ -37,11 +37,13 @@ class Drive:
         if self.creds:
             logger.info("Creds created sucssessfully")
 
-    async def delete_video(self, video_url: str) -> None:
+    async def delete_video(self, video_url: str) -> bool:
         video_id = video_url.split('/')[-2]
         try:
             request = self.service.files().delete(fileId=video_id).execute()
-            #request = self.service.files().get(fileId=video_id).execute()
+            if not request:
+                return True
+            return False
         except HttpError as error:
             logger.error(error)
 

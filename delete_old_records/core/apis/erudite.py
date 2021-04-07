@@ -1,7 +1,7 @@
 from loguru import logger
 from aiohttp import ClientSession
 
-from settings import settings
+from ..settings import settings
 
 
 class Erudite:

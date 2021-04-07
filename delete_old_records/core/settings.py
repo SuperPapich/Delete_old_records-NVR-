@@ -1,4 +1,5 @@
 from pydantic import BaseSettings, Field
+from typing import Optional
 
 
 class Settings(BaseSettings):
@@ -9,6 +10,8 @@ class Settings(BaseSettings):
     token_path: str = Field(..., env="TOKEN_PATH")
 
     del_date: str = Field(..., env="DATE_TIME")
+
+    gmail_password: Optional[str] = Field(None, env="GMAIL_PASSWORD")
 
     class Config:
         env_file = ".env"

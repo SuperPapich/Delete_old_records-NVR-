@@ -1,8 +1,9 @@
 import asyncio
 from loguru import logger
 
-from apis.erudite import Erudite
-from apis.drive import Drive
+from core.apis.erudite import Erudite
+from core.apis.drive import Drive
+from core.utils import alert
 
 
 def get_offline(records: list) -> list:
@@ -11,14 +12,16 @@ def get_offline(records: list) -> list:
 
 
 @logger.catch
+@alert("popashuta@miem.hse.ru")
 async def main():
     er = Erudite()
     drive = Drive()
 
     records = await er.get_needed_records()
     offline_records = get_offline(records)
+
     for record in offline_records:
-        print(record)
+        logger.info(f"Deleting record - {record}")
         await drive.delete_video(record.get('url'))
         await er.delete_record(record.get('id'))
 
