@@ -5,5 +5,6 @@ pycache
 *.cpython*
 .DS_Store
 *credentials.json
+<<<<<<< HEAD
 *env*
 venv/
