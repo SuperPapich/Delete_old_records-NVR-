@@ -16,8 +16,8 @@ def alert(mail: str):
                 server.starttls()
                 server.login(mail, settings.gmail_password)
                 logger.info("Login success")
-                message = f"Gcalendar_ruz has an error - {error}"
-                server.sendmail(mail, mail, str(error))
+                message = f"Delete all records has an error - {error}"
+                server.sendmail(mail, mail, message)
                 logger.info("Email sent!")
                 server.close()
                 raise Exception
