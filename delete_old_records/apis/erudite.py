@@ -17,7 +17,11 @@ class Erudite:
             )
             async with records:
                 records = await records.json()
-            logger.info(f"Records found - {records}")
+
+        if len(records) > 0:
+            logger.info(f"Records found")
+        else:
+            logger.warning(f"No records found")
 
         return records
 

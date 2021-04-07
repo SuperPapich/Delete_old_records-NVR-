@@ -5,26 +5,26 @@ from apis.erudite import Erudite
 from apis.drive import Drive
 
 
-@logger.catch
-def filter(record: list) -> bool:
-    if record.get('type') == 'Offline':
-        return True
-    else:
-        return False
+def get_offline(records: list) -> list:
+    new_records = [record for record in records if record.get('type') == 'Offline1']
+    return new_records
 
 
 @logger.catch
 async def main():
     er = Erudite()
     drive = Drive()
+
     records = await er.get_needed_records()
-    for i in range(len(records)):
-        if filter(records[i]):
-            #print(records[i])
-            await drive.delete_video(records[i].get('url'))
+    offline_records = get_offline(records)
+    for record in offline_records:
+        print(record)
+        await drive.delete_video(record.get('url'))
+        await er.delete_record(record.get('id'))
 
 
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
+
