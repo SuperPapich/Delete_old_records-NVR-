@@ -38,15 +38,9 @@ class Drive:
             logger.info("Creds created sucssessfully")
 
     async def delete_video(self, video_url: str) -> None:
-        video_id = video_url.split('/')[-2]
+        video_id = video_url.split("/")[-2]
         try:
-            request = self.service.files().delete(fileId=video_id).execute()
+            self.service.files().delete(fileId=video_id).execute()
             logger.info(f"Record with id - {video_id} deleted from drive")
         except HttpError as error:
             logger.error(error)
-
-
-
-
-
-

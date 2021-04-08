@@ -25,8 +25,6 @@ class Erudite:
             logger.warning("No records found")
             return []
 
-        
-
     async def delete_record(self, record_id: str):
         async with ClientSession() as session:
             res = await session.delete(
@@ -34,7 +32,7 @@ class Erudite:
                 headers={"key": self.ERUDITE_API_KEY},
             )
             async with res:
-                ans = await res.json()
+                await res.json()
 
         if res.status == 200:
             logger.info(f"Record with id: {record_id} deleted")

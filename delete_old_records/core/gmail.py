@@ -29,7 +29,6 @@ class Gmail:
         if self.server:
             self.server.close()
 
-
     def get_password(self) -> str or None:
         gmail_info = Gmail_info(_env_file="../.env")
         password = gmail_info.gmail_password
@@ -68,15 +67,16 @@ class Gmail:
             if loged:
                 self.server.sendmail(self.gmail, self.gmail, message)
                 logger.info("Gmail sent")
-    
+
 
 gmail = Gmail()
+
 
 def alert_async(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
         try:
-            result = await func(*args, **kwargs)
+            await func(*args, **kwargs)
         except Exception as error:
             message = gmail.create_message(error)
             gmail.send_gmail_to_myself(message)
@@ -96,5 +96,3 @@ def alert_sync(func):
             raise Exception
 
     return wrapper
-
-

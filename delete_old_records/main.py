@@ -7,7 +7,7 @@ from core.gmail import alert_async
 
 
 def get_offline(records: list) -> list:
-    new_records = [record for record in records if record.get('type') == 'Offline1']
+    new_records = [record for record in records if record.get("type") == "Offline1"]
     if len(new_records) > 0:
         logger.info("Offline records older than needed date found")
         return new_records
@@ -28,8 +28,8 @@ async def main():
 
     tasks = []
     for record in offline_records:
-        tasks.append(erudite.delete_record(record.get('id')))
-        tasks.append(drive.delete_video(record.get('url')))  
+        tasks.append(erudite.delete_record(record.get("id")))
+        tasks.append(drive.delete_video(record.get("url")))
 
     await asyncio.gather(*tasks)
 
@@ -39,4 +39,3 @@ async def main():
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
-

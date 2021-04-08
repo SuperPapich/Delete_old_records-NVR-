@@ -1,5 +1,4 @@
 from pydantic import BaseSettings, Field
-from typing import Optional
 
 
 class Settings(BaseSettings):
@@ -17,4 +16,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings(_env_file="../.env")
-
