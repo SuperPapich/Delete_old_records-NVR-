@@ -11,8 +11,6 @@ class Settings(BaseSettings):
 
     del_date: str = Field(..., env="DATE_TIME")
 
-    gmail_password: Optional[str] = Field(None, env="GMAIL_PASSWORD")
-
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"

@@ -18,12 +18,14 @@ class Erudite:
             async with records:
                 records = await records.json()
 
-        if len(records) > 0:
-            logger.info(f"Records found")
+        if type(records) == list:
+            logger.info(f"Records older than {self.DEL_DATE} found")
+            return records
         else:
-            logger.warning(f"No records found")
+            logger.warning("No records found")
+            return []
 
-        return records
+        
 
     async def delete_record(self, record_id: str):
         async with ClientSession() as session:
@@ -32,11 +34,10 @@ class Erudite:
                 headers={"key": self.ERUDITE_API_KEY},
             )
             async with res:
-                await res.json()
+                ans = await res.json()
 
         if res.status == 200:
             logger.info(f"Record with id: {record_id} deleted")
-            return
         elif res.status == 404:
             logger.info(f"Record with id: {record_id} is not found in Erudite")
         else:
