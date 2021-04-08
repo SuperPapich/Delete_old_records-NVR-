@@ -1,10 +1,8 @@
 /env
-delete_old_records/.env
 pycache
 .vscode/
 *.cpython*
 .DS_Store
-*credentials.json
-<<<<<<< HEAD
 *env*
 venv/
+*creds*
