@@ -7,7 +7,7 @@ from core.gmail import alert_async
 
 
 def get_offline(records: list) -> list:
-    new_records = [record for record in records if record.get("type") == "Offline"]
+    new_records = [record for record in records if record.get("type") == "Offline" or record.get("type") == "Autorecord"]
     if len(new_records) > 0:
         logger.info("Offline records older than needed date found")
         return new_records
