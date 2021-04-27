@@ -7,7 +7,7 @@ from core.gmail import alert_async
 
 
 def get_offline(records: list) -> list:
-    new_records = [record for record in records if record.get("type") == "Offline1"]
+    new_records = [record for record in records if record.get("type") == "Offline"]
     if len(new_records) > 0:
         logger.info("Offline records older than needed date found")
         return new_records
@@ -34,6 +34,7 @@ async def main():
     await asyncio.gather(*tasks)
 
     logger.info("All needed records deleted")
+
 
 
 if __name__ == "__main__":
